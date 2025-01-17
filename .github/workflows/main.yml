@@ -25,3 +25,8 @@ jobs:
             sudo git fetch
             sudo git checkout origin/main
             sudo pip install -r requirements.txt
+      - name: Health check
+        env:
+          REMOTE_HOST: ${{ secrets.REMOTE_IP }}
+          NOTIFICATION_HOST: ${{ secrets.NOTIFICATION_URL }}
+        run: curl https://$REMOTE_HOST/health && curl -L $NOTIFICATION_HOST -d "seoul-line-ml-api is deployed successfully"

@@ -42,3 +42,8 @@ async def predict(request: List[dict]):
 
     predictions = xgb.predict(X).tolist()
     return [*predictions]
+
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
