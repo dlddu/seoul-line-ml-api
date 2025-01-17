@@ -1,0 +1,27 @@
+name: SSH to Remote Machine
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ssh-remote:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.REMOTE_SSH_ID }}
+          key: ${{ secrets.REMOTE_SSH_KEY }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          script: |
+            whoami
+            cd /seoul-line-ml-api
+            sudo git fetch
+            sudo git checkout origin/main
+            sudo pip install -r requirements.txt
