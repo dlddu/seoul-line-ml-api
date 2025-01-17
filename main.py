@@ -46,4 +46,4 @@ async def predict(request: List[dict]):
 
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    return {"status": "ok2"}
